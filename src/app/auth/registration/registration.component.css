@@ -1,0 +1,7 @@
+/* 错误提示 */
+.text-danger {
+    color: #e74c3c; /* 红色文字 */
+    font-size: 0.8rem; /* 字体大小，可以根据需要进行调整 */
+    min-height: 1em; /* 预留空间 */
+    margin-top: 0.25rem;
+}

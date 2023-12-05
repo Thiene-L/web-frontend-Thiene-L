@@ -1,0 +1,190 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-8" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <br>
+            <div>
+                <img [src]=userImage [style.width.px]="imgWidth" [style.height.px]="imgHeight">
+                <input type="file" (change)="onFileSelected($event)">
+                <input type="file" #fileInput style="display:none" (change)="onFileSelected($event)" class="blue-button"/>
+            </div>
+            <br>
+        </div>
+
+
+        <div class="col-md-4" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <br>
+            <h1>
+                Profile Page
+            </h1>
+            <div>
+                <button routerLink="/main" class="blue-button">
+                    Return to Main Page
+                </button>
+            </div>
+            <br>
+            <div>
+                <button (click)="linkAccount()" class="btn btn-primary">
+                    Link to Google
+                </button>
+            </div>
+            <!-- 错误提示 -->
+            <div *ngIf="linkError" class="alert alert-danger">
+                {{linkError}}
+            </div>
+            <br>
+            <div>
+                <button (click)="unlinkAccount()" class="btn btn-danger">
+                    Unlink to Google
+                </button>
+            </div>
+            <div *ngIf="unlinkError" class="alert alert-danger">
+                {{unlinkError}}
+            </div>
+            <br>
+        </div>
+
+
+        <div class="col-md-6" style="background-color: #e6f7ff;box-shadow:
+     inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <div>
+                <br>
+                <h2>
+                    Account Information
+                </h2>
+                <div>
+                    <label>Account Name:</label>
+                    <label>{{info['accountName']}}</label>
+                </div>
+                <div>
+                    <label>Email Address:</label>
+                    <label>{{info['emailAddress']}}</label>
+                </div>
+                <div>
+                    <label>Phone Number:</label>
+                    <label>{{info['phoneNumber']}}</label>
+                </div>
+                <div>
+                    <label>dateOfBirth:</label>
+                    <label>{{info['dateOfBirth']}}</label>
+                </div>
+                <div>
+                    <label>Zipcode:</label>
+                    <label>{{info['zipcode']}}</label>
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <label>**********</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-6" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                <!-- Email Address -->
+                <br>
+                <div class="form-group">
+                    <label for="emailAddress">
+                        Email Address:
+                    </label>
+                    <input id="emailAddress" formControlName="emailAddress" type="email"
+                           class="form-control input">
+                    <br>
+                    <small class="text-danger"
+                           *ngIf="updateForm.get('emailAddress')!.invalid && updateForm.get('emailAddress')!.touched">
+                        Invalid Email Address.
+                    </small>
+                    <small class="text-good"
+                           *ngIf="!(updateForm.get('emailAddress')!.invalid && updateForm.get('emailAddress')!.touched)">
+                        <br>
+                    </small>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phoneNumber">
+                        Phone Number:
+                    </label>
+                    <input id="phoneNumber" formControlName="phoneNumber" type="text"
+                           class="form-control input">
+                    <br>
+                    <small class="text-danger"
+                           *ngIf="updateForm.get('phoneNumber')!.invalid && updateForm.get('phoneNumber')!.touched">
+                        Invalid Phone Number.
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="!(updateForm.get('phoneNumber')!.invalid && updateForm.get('phoneNumber')!.touched)">
+                        <br>
+                    </small>
+                </div>
+
+                <!-- Zipcode -->
+                <div class="form-group">
+                    <label for="zipcode">
+                        Zipcode:
+                    </label>
+                    <input id="zipcode" formControlName="zipcode" type="text" class="form-control input">
+                    <br>
+                    <small class="text-danger"
+                           *ngIf="updateForm.get('zipcode')!.invalid && updateForm.get('zipcode')!.touched">
+                        Invalid Zipcode.
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="!(updateForm.get('zipcode')!.invalid && updateForm.get('zipcode')!.touched)">
+                        <br>
+                    </small>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">
+                        Password:
+                    </label>
+                    <input id="password" formControlName="password" type="password"
+                           class="form-control input">
+                    <br>
+                    <small class="text-danger"
+                           *ngIf="updateForm.get('password')!.invalid && updateForm.get('password')!.touched">
+                        Password length is 8-64 characters, must include numbers, letters, special characters.
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="!(updateForm.get('password')!.invalid && updateForm.get('password')!.touched)">
+                        <br>
+                    </small>
+                </div>
+
+                <!-- Password Confirmation -->
+                <div class="form-group">
+                    <label for="passwordConfirmation">
+                        Password Confirmation:
+                    </label>
+                    <input id="passwordConfirmation" formControlName="passwordConfirmation" type="password"
+                           class="form-control input">
+                    <br>
+                    <small class="text-danger" *ngIf="updateForm.hasError('passwordConfirmationRequired')">
+                        Password Confirmation is required.
+                    </small>
+                    <small class="text-danger" *ngIf="updateForm.hasError('mismatch')">
+                        Passwords do not match.
+                    </small>
+                    <small class="text-danger"
+                           *ngIf="!(updateForm.hasError('mismatch') && updateForm.get('password')!.touched && updateForm.get('passwordConfirmation')!.touched)">
+                        <br>
+                    </small>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary" [disabled]="updateForm.invalid">
+                        Update
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

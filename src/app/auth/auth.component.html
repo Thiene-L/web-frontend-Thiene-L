@@ -1,0 +1,47 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                <div class="form-group">
+                    <label for="accountName">
+                        Account Name
+                        <span class="required-asterisk">*</span>
+                    </label>
+                    <input id="accountName" formControlName="accountName" type="text"
+                           class="form-control input">
+                    <br><br>
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">
+                        Password
+                        <span class="required-asterisk">*</span>
+                    </label>
+                    <input id="password" formControlName="password" type="password" class="form-control input">
+                </div>
+
+                <!-- Login Button -->
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+                        login
+                    </button>
+                </div>
+            </form>
+
+            <!-- 添加 Google 登录按钮 -->
+            <div class="form-group text-center">
+                <a href="https://bl73-0e2710080106.herokuapp.com/auth/google" target="_self" class="btn btn-danger">Login with Google</a>
+            </div>
+        </div>
+
+
+        <div class="col-md-6" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <app-registration></app-registration>
+        </div>
+    </div>
+</div>

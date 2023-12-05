@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <br>
+            <div>
+                <button routerLink="" class="blue-button" (click)="onLogout()">
+                    Logout
+                </button>
+                <button routerLink="/profile" style="margin-left: 30px;" class="blue-button">
+                    Profile
+                </button>
+            </div>
+            <br>
+            <div>
+                <img [src]=userImage [style.width.px]="imgWidth" [style.height.px]="imgHeight">
+                <input type="file" (change)="onFileSelected($event)">
+                <input type="file" #fileInput style="display:none" (change)="onFileSelected($event)" class="blue-button"/>
+            </div>
+            <br>
+            <h6>
+                {{ userName }}
+            </h6>
+            <!-- status-updater.component.html -->
+
+            <div class="status-display">
+                {{ status }}
+            </div>
+
+            <form (ngSubmit)="updateStatus()">
+                <input type="text" id="newStatus" [(ngModel)]="newStatus" name="newStatus" placeholder="New status"
+                       required>
+                <button type="submit" class="blue-button">Update</button>
+            </form>
+
+            <br>
+        </div>
+
+        <div class="col-md-12" style="background-color: #e6f7ff;box-shadow:
+         inset 1px -1px 1px #444, inset -1px 1px 1px #444;">
+            <app-posts></app-posts>
+        </div>
+
+    </div>
+</div>

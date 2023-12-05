@@ -1,0 +1,149 @@
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+    <!-- Account Name -->
+    <div class="form-group">
+        <label for="accountName">
+            Account Name:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="accountName" formControlName="accountName" type="text"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('accountName')!.invalid && registrationForm.get('accountName')!.touched">
+            Account Name must be 6-12 alphanumeric characters.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('accountName')!.invalid && registrationForm.get('accountName')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Display Name -->
+    <div class="form-group">
+        <label for="displayName">Display Name (Optional):</label>
+        <input id="displayName" formControlName="displayName" type="text"
+               class="form-control input">
+        <br>
+    </div>
+
+    <!-- Email Address -->
+    <div class="form-group">
+        <label for="emailAddress">
+            Email Address:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="emailAddress" formControlName="emailAddress" type="email"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('emailAddress')!.invalid && registrationForm.get('emailAddress')!.touched">
+            Invalid Email Address.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('emailAddress')!.invalid && registrationForm.get('emailAddress')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+        <label for="phoneNumber">
+            Phone Number:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="phoneNumber" formControlName="phoneNumber" type="text"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('phoneNumber')!.invalid && registrationForm.get('phoneNumber')!.touched">
+            Invalid Phone Number.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('phoneNumber')!.invalid && registrationForm.get('phoneNumber')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+        <label for="dateOfBirth">
+            Date of Birth:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="dateOfBirth" formControlName="dateOfBirth" type="date"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('dateOfBirth')!.invalid && registrationForm.get('dateOfBirth')!.touched">
+            You must be at least 18 years old.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('dateOfBirth')!.invalid && registrationForm.get('dateOfBirth')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Zipcode -->
+    <div class="form-group">
+        <label for="zipcode">
+            Zipcode:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="zipcode" formControlName="zipcode" type="text" class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('zipcode')!.invalid && registrationForm.get('zipcode')!.touched">
+            Invalid Zipcode.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('zipcode')!.invalid && registrationForm.get('zipcode')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Password -->
+    <div class="form-group">
+        <label for="password">
+            Password:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="password" formControlName="password" type="password"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.get('password')!.invalid && registrationForm.get('password')!.touched">
+            Password length is 8-64 characters, must include numbers, letters, special characters.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.get('password')!.invalid && registrationForm.get('password')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Password Confirmation -->
+    <div class="form-group">
+        <label for="passwordConfirmation">
+            Password Confirmation:
+            <span class="required-asterisk">*</span>
+        </label>
+        <input id="passwordConfirmation" formControlName="passwordConfirmation" type="password"
+               class="form-control input">
+        <br>
+        <small class="text-danger"
+               *ngIf="registrationForm.hasError('mismatch') && registrationForm.get('password')!.touched && registrationForm.get('passwordConfirmation')!.touched">
+            Passwords do not match.
+        </small>
+        <small class="text-danger"
+               *ngIf="!(registrationForm.hasError('mismatch') && registrationForm.get('password')!.touched && registrationForm.get('passwordConfirmation')!.touched)">
+            <br>
+        </small>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-group text-center">
+        <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">
+            Register
+        </button>
+    </div>
+</form>

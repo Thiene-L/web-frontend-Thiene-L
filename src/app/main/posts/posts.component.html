@@ -1,0 +1,94 @@
+<div class="new-post-container">
+    <div class="post-creation">
+        <img *ngIf="articleImage" [src]="articleImage" alt="Selected Image" class="preview-image" [style.width.px]=150
+             [style.height.px]=150>
+        <input type="file" (change)="onFileSelected($event)" #fileInput>
+        <textarea [(ngModel)]="newPostText" placeholder="Write your new post here..."></textarea>
+    </div>
+    <button (click)="onPostNewArticle()" class="blue-button">Post</button>
+    <button (click)="onCancelNewArticle()" class="blue-button">Cancel</button>
+</div>
+
+
+<div class="flex-container">
+
+    <div class="sidebar">
+        <div *ngFor="let userInfo of allUsersInfo" class="user">
+            <!-- 添加用户编号 -->
+            <img [src]="userInfo.avatar" alt="User Image" class="user-image">
+            <div class="user-info">
+                <p class="user-info-text">Username:<br>{{ userInfo.username }}</p>
+                <p class="user-info-text">Email:<br>{{ userInfo.email }}</p>
+            </div>
+            <button (click)="unfollowUser(userInfo.username)" class="blue-button">Unfollow</button>
+        </div>
+
+        <!-- 添加新关注者的部分 -->
+        <div class="add-follower">
+            <input [(ngModel)]="newFollowerName" placeholder="Add new follower"/>
+            <button (click)="addFollower()" class="blue-button">Add</button>
+            <div *ngIf="followerError" class="error-message">{{ followerError }}</div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- 搜索容器 -->
+        <div class="search-container">
+            <input type="text" [(ngModel)]="searchKeyword" placeholder="Search for posts..." (keyup)="onSearch()">
+            <button (click)="updateDisplayedPosts()" class="blue-button">Search</button>
+        </div>
+
+        <div class="posts-container">
+            <div *ngFor="let post of displayedPosts" class="post-pane">
+                <img *ngIf="post.avatar" [src]="post.avatar.toString()" alt="Post Image" class="post-image">
+                <div class="text-container" [innerHTML]="highlight(post.text)"></div>
+                <p class="author">Author: {{ post.author }}</p>
+                <p class="timestamp">Posted: {{ post.date | date:'short' }}</p>
+                <!-- 修改文章窗口 -->
+                <button (click)="toggleEditArticle(post.pid)" class="blue-button">Edit Article</button>
+                <!-- 修改文章功能 -->
+                <div *ngIf="editingArticleId == post.pid" class="edit-windows">
+                    <textarea [(ngModel)]="editedArticleText" placeholder="Edit your article here..."></textarea>
+                    <button (click)="editArticle(editedArticleText, post._id)" class="blue-button">Apply</button>
+                    <div *ngIf="articleError" class="error-message">{{ articleError }}</div>
+                </div>
+                <div class="comments-section">
+                    <p>Comments:</p>
+                    <br>
+                    <div class="comment-pane">
+                        <div *ngFor="let comment of post.comments" class="comment">
+                            <p class="comment-author">Author: {{ comment.author }}</p>
+                            <p class="comment-body">{{ comment.text }}</p>
+                            <!-- 编辑功能 -->
+                            <button (click)="toggleEdit(comment.commentId)" class="blue-button">Edit</button>
+                            <div *ngIf="editingCommentId === comment.commentId" class="edit-windows">
+                                <textarea [(ngModel)]="editedCommentText"
+                                          placeholder="Edit your comment here..."></textarea>
+                                <button (click)="editComment(editedCommentText, comment.commentId, post._id)"
+                                        class="blue-button">Apply
+                                </button>
+                                <div *ngIf="commentError" class="error-message">{{ commentError }}</div>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+
+                <!-- 评论窗口 -->
+                <button (click)="toggleComment(post.pid)" class="blue-button">Comment</button>
+                <!-- 评论功能 -->
+                <div *ngIf="commentingPostId === post.pid" class="edit-windows">
+                    <textarea [(ngModel)]="newCommentText" placeholder="Put your comment here..."></textarea>
+                    <button (click)="addComment(newCommentText, post._id)" class="blue-button">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<button (click)="onPrevious()" [disabled]="currentIndex === 1" class="blue-button">Previous</button>
+<button (click)="onNext()" [disabled]="this.displayedPosts.length < 10" class="blue-button">
+    Next
+</button>
